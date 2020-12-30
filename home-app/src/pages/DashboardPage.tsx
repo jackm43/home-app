@@ -1,26 +1,26 @@
-import { Page } from "tabler-react";
 import "tabler-react/dist/Tabler.css";
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import axios from 'axios';
+import { Page, Table, Loader } from "tabler-react";
 import { TaskTable } from "../components/TaskTable"
 import { DailyTable } from "../components/DailyTable"
 import { TransportTable } from "../components/TransportTable"
-import axios from 'axios';
 import { ITransportData } from "../types/types"
+import { useEffect, useState } from 'react';
 
 const journeyData: ITransportData[] = []
 
-export const DashboardPage: React.FC= () => {
+export const DashboardPage: React.FC = () => {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState<ITransportData[]>()
     
     useEffect(() => {
       async function waitForJourneyApiData() {
-        console.log("hello")
         await axios.get(
           "http://localhost:3001/journeys"
         ).then((response) => {
           let travelData: ITransportData[] = JSON.parse(response.request.response);
-          travelData.forEach((data: any) => {
+          travelData.forEach((data: ITransportData) => {
             let travelObject = {
                 departure_time: data.departure_time,
                 arrival_time: data.arrival_time,
@@ -41,14 +41,15 @@ export const DashboardPage: React.FC= () => {
   
     }, [])
     if (isLoading) {
-      return <div className="App">Loading...</div>
+      return <Loader align="bottom"></Loader>
     }
     console.log(data)
     return (
 
         <Page.Content title="Dashboard">
+          <Table headerItems={[{content: "Date"}, {content: "Depart"}, {content: "Arrive"}, {content: "Travel Time"}, {content: "Via"}, {content: "Line"}]}>
             {
-                journeyData.map((data: any) => <TransportTable 
+                journeyData.map((data: ITransportData) => <TransportTable 
                     departure_time={data.departure_time}
                     arrival_time={data.arrival_time}
                     line={data.line}
@@ -57,6 +58,7 @@ export const DashboardPage: React.FC= () => {
                     date={data.date}
                     ></TransportTable>)
             } 
+            </Table>
             <TaskTable/>
             <DailyTable/>
             {/* <TransportTable cards={journeyData}/> */}

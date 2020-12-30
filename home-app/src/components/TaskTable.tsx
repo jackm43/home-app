@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Button, Grid, Card} from "tabler-react";
+import { Table, Button, Grid, Card } from "tabler-react";
 
 export const TaskTable: React.FC = () => {
     return (
