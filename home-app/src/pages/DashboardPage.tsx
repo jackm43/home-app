@@ -1,4 +1,5 @@
 import "tabler-react/dist/Tabler.css";
+import "../styles/custom.css"
 import React from 'react';
 import axios from 'axios';
 import { Page, Table, Loader } from "tabler-react";
@@ -44,10 +45,12 @@ export const DashboardPage: React.FC = () => {
       return <Loader align="bottom"></Loader>
     }
     console.log(data)
+
+
     return (
 
         <Page.Content title="Dashboard">
-          <Table headerItems={[{content: "Date"}, {content: "Depart"}, {content: "Arrive"}, {content: "Travel Time"}, {content: "Via"}, {content: "Line"}]}>
+          <Table className="table_bottom_position" headerItems={[{content: "Date"}, {content: "Depart"}, {content: "Arrive"}, {content: "Travel Time"}, {content: "Via"}, {content: "Line"}]}>
             {
                 journeyData.map((data: ITransportData) => <TransportTable 
                     departure_time={data.departure_time}
@@ -58,11 +61,9 @@ export const DashboardPage: React.FC = () => {
                     date={data.date}
                     ></TransportTable>)
             } 
-            </Table>
-            <TaskTable/>
-            <DailyTable/>
-            {/* <TransportTable cards={journeyData}/> */}
-
+          </Table>
+          <TaskTable/>
+          <DailyTable/>
         </Page.Content>
     );
 }
