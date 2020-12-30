@@ -1,9 +1,13 @@
 # Home App
 
+## WARNING
+
+This is absolutely not currently built to be used anywhere outside your own, non-internet connected network. Use at your own risk!
+
 ## Stuff to do
 - [x] Fetch journey from JourneyPlanner on the Transperth Website
 
-    - [ ] Database to hold previous entries, saved entries
+    - [x] Database to hold previous entries, saved entries
 
     - [ ] Input from user for to/from addresses
 
@@ -20,9 +24,9 @@
 
     - Free text box
 
-        - [ ] Shopping list that sends email to selected people
+        - [ ] Shopping list that sends email or something to selected people
 
-    - Table display with buttons to mark as complete
+    - Table display with buttons to mark as complete (Maybe this can just be a calendar or something?)
 
         - [ ] Last car service reminder
 
@@ -32,8 +36,10 @@
 
 Tech debt and other things
 
-- [ ] API
+- [x] API
 
 - [ ] Error handling
 
 - [ ] Tests
+
+- [ ] Make it so there isnt 5 lock files across both yarn and npm lol

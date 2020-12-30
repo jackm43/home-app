@@ -1,10 +1,6 @@
+const axios = require("axios")
 
-const { encode } = require('punycode');
 const puppeteer = require('puppeteer');
-const readline = require('readline').createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
 
 function constructDate() {
     let currentDate = new Date().toISOString().slice(0,10); 
@@ -43,15 +39,27 @@ async function journey(query) {
             "line": station
         }
         return {
-            travelData,
-            first
+            travelData
         }
     })
-    console.log(data);
     await browser.close();
+    return data
   };
 
-function main() {
+async function postJourneyToApi(journeyData) {
+    let insert = {
+        "departure_time": journeyData.travelData.departTime,
+        "arrival_time": journeyData.travelData.arriveTime,
+        "line": journeyData.travelData.line,
+        "travel_time": journeyData.travelData.travelTime,
+        "transport_type": journeyData.travelData.transportType,
+        "date": constructDate()
+    }
+
+    const res = await axios.post("http://localhost:3001/newjourney", insert)
+    console.log(res);
+}
+async function main() {
     let date = constructDate();
     let time = constructTime();
     // FORMAT: {number} {STREETNAME ST/TURN/WHATEVER, SUBURB}
@@ -60,7 +68,10 @@ function main() {
 
     let query = constructQueryUrl(fromAddress, toAddress, date, time);
 
-    journey(query);
+    let journeyData = await journey(query);
+    await postJourneyToApi(journeyData);
+
 }
+
 
 main();

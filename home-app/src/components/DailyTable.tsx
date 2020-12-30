@@ -1,4 +1,4 @@
-import React, { Component, MouseEvent} from "react";
+import React from "react";
 import { Table, Button, Grid, Card} from "tabler-react";
 
 export const DailyTable: React.FC = () => {

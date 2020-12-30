@@ -1,11 +1,16 @@
 var express = require('express'),
   app = express(),
   port = process.env.PORT || 3001,
+  
   mongoose = require('mongoose'),
-  Task = require('./api/models/Model'), //created model loading here
+  Task = require('./api/models/TaskModel'), //created model loading here
+  Journey = require('./api/models/JourneyModel')
   bodyParser = require('body-parser');
   
+var cors = require('cors');
+app.use(cors());
 // mongoose instance connection url connection
+
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/Tododb'); 
 

@@ -1,6 +1,5 @@
-import React, { Component, MouseEvent} from "react";
+import React from "react";
 import { Table, Button, Grid, Card} from "tabler-react";
-import { GeneratedIdentifierFlags } from "typescript";
 
 export const TaskTable: React.FC = () => {
     return (
