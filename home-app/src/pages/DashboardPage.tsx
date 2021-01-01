@@ -9,6 +9,7 @@ import { WeatherDisplay } from "../components/WeatherDisplay"
 import { TransportTable } from "../components/TransportTable"
 import { ITransportData, IWeatherData } from "../types/types"
 import { useEffect, useState } from 'react';
+import Clock from 'react-live-clock';
 
 const journeyData: ITransportData[] = []
 const weatherData: IWeatherData[] = []
@@ -72,6 +73,17 @@ export const DashboardPage: React.FC = () => {
     return (
 
         <Page.Content title="Dashboard">
+          <Clock format={'HH:mm:ss'} ticking={true} timezone={"Australia/Perth"}/>
+          
+          {
+            weatherData.map((data: IWeatherData) => <WeatherDisplay 
+                temp={data.temp}
+                feels_like={data.feels_like}
+                humidity={data.humidity}
+                sunset={data.sunset}
+                ></WeatherDisplay>
+                )
+            } 
           <Table className="table_bottom_position" headerItems={[{content: "Date"}, {content: "Depart"}, {content: "Arrive"}, {content: "Travel Time"}, {content: "Via"}, {content: "Line"}]}>
             {
                 journeyData.map((data: ITransportData) => <TransportTable 
@@ -89,14 +101,6 @@ export const DashboardPage: React.FC = () => {
           </Table>
           <TaskTable/>
           <DailyTable/>
-          {
-                weatherData.map((data: IWeatherData) => <WeatherDisplay 
-                    temp={data.temp}
-                    feels_like={data.feels_like}
-                    humidity={data.humidity}
-                    sunset={data.sunset}
-                    ></WeatherDisplay>)
-            } 
         </Page.Content>
     );
 }

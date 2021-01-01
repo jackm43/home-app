@@ -36,5 +36,8 @@ module.exports = function(app) {
 
   app.route('/deleteweather')
     .delete(weatherList.delete_a_weather)
+
+  app.route('/deleteallweather')
+    .delete(weatherList.delete_all_weathers)
     
 };

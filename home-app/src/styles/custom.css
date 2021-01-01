@@ -16,3 +16,24 @@
     box-shadow: 0px 0px 5px rgba(66,66,66,.75);
     text-shadow: 0px 0px 5px rgba(66,66,66,.75);
 }
+
+.card-but-transparent {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  /* background-color: #ffffffb7; */
+  /* background-clip: border-box; */
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+
+.big-text {
+  font-size: 55px;
+  position: absolute;
+  top: -20px;
+  left: 600px;
+}

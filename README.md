@@ -2,7 +2,7 @@
 
 ## WARNING
 
-This is absolutely not currently built to be used anywhere outside your own, non-internet connected network. Use at your own risk!
+This is absolutely not currently built to be used anywhere outside of a LAN environment connected network. Use at your own risk!
 
 ## Stuff to do
 - [x] Fetch journey from JourneyPlanner on the Transperth Website
@@ -38,8 +38,10 @@ Tech debt and other things
 
 - [x] API
 
+- [ ] Docker
+
 - [ ] Error handling
 
 - [ ] Tests
 
-- [ ] Make it so there isnt 5 lock files across both yarn and npm lol
+- [ ] Make it so there isnt 5 lock files across both yarn and npm lol (consolidate to just yarn prob)
