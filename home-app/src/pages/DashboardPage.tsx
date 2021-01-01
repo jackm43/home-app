@@ -5,18 +5,40 @@ import axios from 'axios';
 import { Page, Table, Loader } from "tabler-react";
 import { TaskTable } from "../components/TaskTable"
 import { DailyTable } from "../components/DailyTable"
+import { WeatherDisplay } from "../components/WeatherDisplay"
 import { TransportTable } from "../components/TransportTable"
-import { ITransportData } from "../types/types"
+import { ITransportData, IWeatherData } from "../types/types"
 import { useEffect, useState } from 'react';
 
 const journeyData: ITransportData[] = []
+const weatherData: IWeatherData[] = []
 
 export const DashboardPage: React.FC = () => {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState<ITransportData[]>()
     
     useEffect(() => {
+      async function waitForWeatherApiData() {
+        await axios.get(
+          "http://localhost:3001/weather"
+        ).then((response) => {
+          let weatherDatas: IWeatherData[] = JSON.parse(response.request.response);
+          weatherDatas.forEach((data: IWeatherData) => {
+            let weatherObject = {
+              temp: data.temp,
+              feels_like: data.feels_like,
+              humidity: data.humidity,
+              sunset: data.sunset
+            }
+            
+            weatherData.push(weatherObject)
+          })
+          console.log("test")
+          setLoading(false);
+        })
+      }
       async function waitForJourneyApiData() {
+        
         await axios.get(
           "http://localhost:3001/journeys"
         ).then((response) => {
@@ -31,14 +53,14 @@ export const DashboardPage: React.FC = () => {
                 date: data.date
               }
                 journeyData.push(travelObject)
+                
             })
             setData(journeyData)
-            setLoading(false);
-
+            // setLoading(false);
         })
-        
       }
       waitForJourneyApiData();
+      waitForWeatherApiData();
   
     }, [])
     if (isLoading) {
@@ -61,9 +83,20 @@ export const DashboardPage: React.FC = () => {
                     date={data.date}
                     ></TransportTable>)
             } 
+            {
+              console.log(weatherData)
+            }
           </Table>
           <TaskTable/>
           <DailyTable/>
+          {
+                weatherData.map((data: IWeatherData) => <WeatherDisplay 
+                    temp={data.temp}
+                    feels_like={data.feels_like}
+                    humidity={data.humidity}
+                    sunset={data.sunset}
+                    ></WeatherDisplay>)
+            } 
         </Page.Content>
     );
 }

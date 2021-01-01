@@ -7,6 +7,9 @@ export interface ITransportData {
     date: String
 }
 
-export interface IResponse {
-    data: ITransportData
+export interface IWeatherData {
+    temp: Number,
+    feels_like: Number,
+    humidity: Number,
+    sunset: Number
 }
