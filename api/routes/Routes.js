@@ -2,6 +2,7 @@
 module.exports = function(app) {
   var todoList = require('../controllers/TaskController');
   var journeyList = require('../controllers/JourneyController');
+  var weatherList = require("../controllers/WeatherController");
 
   // todoList Routes
   app.route('/tasks')
@@ -14,6 +15,8 @@ module.exports = function(app) {
     .put(todoList.update_a_task)
     .delete(todoList.delete_a_task);
 
+  // journey routes
+
   app.route('/journeys')
     .get(journeyList.list_all_journey);
 
@@ -22,4 +25,16 @@ module.exports = function(app) {
 
   app.route('/deletejourneys')
    .delete(journeyList.delete_a_journey)
+
+  // weather routes
+
+  app.route('/weather')
+    .get(weatherList.list_all_weather)
+
+  app.route('/newweather')
+    .post(weatherList.create_a_weather)
+
+  app.route('/deleteweather')
+    .delete(weatherList.delete_a_weather)
+    
 };

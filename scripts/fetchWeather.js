@@ -6,6 +6,10 @@ const apiKey = ""
 const cityName = "Perth"
 const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`
 
+async function main() {
+    retrieveWeatherData();
+}
+
 async function retrieveWeatherData() {
     await axios.get(url).then(response => {
         this.response = response.data
@@ -16,8 +20,13 @@ async function retrieveWeatherData() {
             "humidity": response.data.main.humidity,
             "sunset": sunset
         }
-        console.log(weatherData)
+        postJourneyToApi(weatherData)
     })
 }
 
-retrieveWeatherData()
+async function postJourneyToApi(weatherData) {
+    const res = await axios.post("http://localhost:3001/newweather", weatherData)
+    console.log(res)
+}
+
+main();

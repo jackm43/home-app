@@ -4,7 +4,8 @@ var express = require('express'),
   
   mongoose = require('mongoose'),
   Task = require('./api/models/TaskModel'), //created model loading here
-  Journey = require('./api/models/JourneyModel')
+  Journey = require('./api/models/JourneyModel'),
+  Weather = require('./api/models/WeatherModel')
   bodyParser = require('body-parser');
   
 var cors = require('cors');
